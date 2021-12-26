@@ -61,8 +61,13 @@ class App extends Component {
     console.log("parent life cycle２: render");
     return (
       <div className="App">
+      <h1>React life cycle</h1>
+      <h3>Open the console of the browser to see which life cycle is running.</h3>
         <main className="w-60 mv5 center ba bw2 flex flex-column items-center">
-          <h1>{this.state.parentState}</h1>
+
+          <h2 className={this.state.parentState==="parent initial state"? "" : "red"}>
+            {this.state.parentState}
+            </h2>
           <button onClick={this.handleClick}>update parent</button>
           {this.state.mountState ? null : (
             <ChildComponent childProps={this.state.childProps} />

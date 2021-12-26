@@ -4,7 +4,7 @@ class ChildComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      childState: "child initial"
+      childState: "child initial state"
     };
     console.log("child life cycle1: constructor");
   }
@@ -14,7 +14,8 @@ class ChildComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps !== this.props) {
+    // nextProps !== this.props 不預期的成立
+    if (nextProps.childProps !== this.props.childProps) {
       console.log("child life cycle４: shouldComponentUpdate");
       console.log("nextProps:", nextProps, "thisProps", this.props);
       return true;
@@ -38,7 +39,7 @@ class ChildComponent extends Component {
   }
 
   handleClick = (e) => {
-    this.setState({ childState: "child updated" });
+    this.setState({ childState: "child state updated" });
     console.log("child event handler");
   };
 
@@ -50,8 +51,12 @@ class ChildComponent extends Component {
     console.log("child life cycle２: render");
     return (
       <div className="w-60 mv4 center ba bw2">
-        <h2>{this.state.childState}</h2>
-        <h3>{this.props.childProps}</h3>
+        <h2 className={this.state.childState==="child initial state"? "" : "green"}>
+          {this.state.childState}
+        </h2>
+        <h3 className={this.props.childProps==="child initial props"? "" : "blue"}>
+          {this.props.childProps}
+        </h3>
         <button className="mv2" onClick={this.handleClick}>
           update child
         </button>
